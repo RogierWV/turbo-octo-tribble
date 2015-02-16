@@ -1,7 +1,8 @@
 #include <stdlib.h>
 #include <stdio.h>
-#include <time.h>
+#include <ctime>
 #include <iostream>
+#include <chrono>
 #include "insertionsort.h"
 
 #define ARR_LENGTH 100
@@ -16,27 +17,20 @@ int main(int argc, char const *argv[])
 	if (argc > 1) arrLength = atoi(argv[1]);
 	else arrLength = ARR_LENGTH;
 
-	int *arr = new int[arrLength];
-	cout << "Unsorted: ";
-	for(int i = 0; i < arrLength; i++)
+	for(int i = 1; i <= 100; i++)
 	{
-		arr[i] = rand() % arrLength + 1;
-		cout << arr[i] << " ";
-	}
-	cout << endl;
-
-	insertionSort(arr, arrLength);
-
-	cout << "Sorted: ";
-
-	for(int i = 0; i < arrLength; i++)
-	{
-		cout << arr[i] << " ";
+		int *arr = new int[arrLength*i];
+		for(int j = 0; j < arrLength*i; j++)
+		{
+			arr[j] = rand() % arrLength + 1;
+		}
+		auto t1 = chrono::high_resolution_clock::now();
+		insertionSort(arr, arrLength*i);
+		auto t2 = chrono::high_resolution_clock::now();
+		cout << arrLength*i << "\t" << chrono::duration_cast<std::chrono::milliseconds>(t2-t1).count() << endl;
+		delete [] arr;
 	}
 
-	cout << endl;
-
-	delete [] arr;
 	return 0;
 }
 
