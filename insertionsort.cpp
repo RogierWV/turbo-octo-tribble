@@ -5,7 +5,7 @@
 #include <chrono>
 #include "insertionsort.h"
 
-#define ARR_LENGTH 100
+#define ARR_LENGTH 1000
 
 using namespace std;
 
